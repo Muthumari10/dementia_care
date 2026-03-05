@@ -1195,7 +1195,7 @@ def caregiver_patient_location(patient_id):
         patient_id=patient_id,
         patient_name="Patient Name Here",
         location=location,
-        google_maps_api_key="AIzaSyAzfJHU7mKkVKW9nTVPymNY-0emhlP-0DQ&v=3.21.5a"
+        google_maps_api_key="your_actual_key"
     )
 
 @app.route('/api/patient/<int:patient_id>/location')
