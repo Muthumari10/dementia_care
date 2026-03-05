@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Capture Relative Face | Dementia Care</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/bootstrap.min.css') }}">
+    <style>
+        video { border: 2px solid #ccc; border-radius: 5px; width: 100%; max-width: 600px; }
+        #progress { margin-top: 10px; }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Capture Relative Face</h2>
+    <p>Camera will automatically capture multiple images. Stay steady in front of the camera.</p>
+
+    <video id="video" autoplay></video>
+    <div id="progress">Captured: <span id="count">0</span> / 20</div>
+
+    <a href="{{ url_for('list_relatives') }}" class="btn btn-primary mt-3">View Enrolled Relatives</a>
+</div>
+
+<script>
+const video = document.getElementById('video');
+const countSpan = document.getElementById('count');
+let count = 0;
+const maxImages = 20;
+
+// Open webcam
+navigator.mediaDevices.getUserMedia({ video: true })
+.then(stream => {
+    video.srcObject = stream;
+})
+.catch(err => {
+    alert("Error accessing camera: " + err);
+});
+
+// Capture frames every 500ms and send to Flask
+function captureFrame() {
+    if(count >= maxImages) return;
+
+    const canvas = document.createElement('canvas');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    const dataURL = canvas.toDataURL('image/jpeg');
+
+    fetch('/patient/relatives/capture_frame', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ image: dataURL, patient_id: '{{ patient_id }}' })
+    }).then(res => res.json())
+      .then(data => {
+          count = data.count;
+          countSpan.innerText = count;
+          if(count < maxImages) setTimeout(captureFrame, 500);
+      });
+}
+
+// Start capturing after video is ready
+video.addEventListener('loadeddata', () => {
+    setTimeout(captureFrame, 1000);
+});
+</script>
+</body>
+</html>

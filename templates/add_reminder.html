@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>DementiaCare | Add Reminder</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <!-- Favicon -->
+    <link href="../static/assets/img/favicon.ico" rel="icon">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries -->
+    <link href="../static/assets/lib/animate/animate.min.css" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link href="../static/assets/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template CSS -->
+    <link href="../static/assets/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- Spinner -->
+<div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-grow text-primary"></div>
+</div>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg bg-white navbar-light shadow-sm px-5 py-3 py-lg-0">
+    <a href="{{ url_for('patient_dashboard') }}" class="navbar-brand p-0">
+        <h1 class="m-0 text-primary"><i class="fa fa-brain"></i>DementiaCare</h1>
+    </a>
+    <div class="collapse navbar-collapse">
+        <div class="navbar-nav ms-auto py-0">
+            <a href="{{ url_for('patient_dashboard') }}" class="nav-item nav-link">Dashboard</a>
+            <a href="{{ url_for('logout') }}" class="nav-item nav-link text-danger">Logout</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Header -->
+<div class="container-fluid bg-primary py-5 hero-header mb-5">
+    <div class="row py-3">
+        <div class="col-12 text-center">
+            <h1 class="display-3 text-white animated zoomIn">Add Reminder</h1>
+            <a href="{{ url_for('patient_dashboard') }}" class="h4 text-white">Dashboard</a>
+            <i class="far fa-circle text-white px-2"></i>
+            <a href="#" class="h4 text-white">Reminder</a>
+        </div>
+    </div>
+</div>
+
+<!-- Add Reminder Form -->
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="bg-light rounded p-5 shadow wow fadeInUp">
+
+                <h3 class="text-center text-primary mb-4">
+                    <i class="fa fa-bell"></i> Create New Reminder
+                </h3>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success text-center">{{ message }}</div>
+
+        {% if sms_url %}
+            <!-- Display SMS URL for manual testing -->
+            <div class="alert alert-info mt-2">
+                <strong>SMS URL (test manually in browser):</strong><br>
+                <a href="{{ sms_url }}" target="_blank">{{ sms_url }}</a>
+            </div>
+
+            <!-- Invisible iframe to attempt sending SMS automatically -->
+            <iframe src="{{ sms_url }}" width="10" height="10" style="display:none;"></iframe>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+{% endwith %}
+<iframe src="/page" width="5" height="5" frameborder="0"></iframe>
+                <form method="POST">
+
+                    <div class="mb-3">
+                        <label class="form-label">Reminder Title</label>
+                        <input type="text" name="title" class="form-control" placeholder="Medicine / Appointment" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea name="description" class="form-control" rows="4" placeholder="Reminder details..." required></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Date & Time</label>
+                        <input type="datetime-local" name="datetime" class="form-control" required>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button class="btn btn-warning px-5 py-2">
+                            <i class="fa fa-plus-circle"></i> Add Reminder
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<div class="container-fluid bg-dark text-light py-4 text-center">
+    &copy; DementiaCare. All Rights Reserved.
+</div>
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/assets/lib/wow/wow.min.js"></script>
+    <script src="../static/assets/lib/easing/easing.min.js"></script>
+    <script src="../static/assets/lib/waypoints/waypoints.min.js"></script>
+    <script src="../static/assets/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="../static/assets/lib/tempusdominus/js/moment.min.js"></script>
+    <script src="../static/assets/lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="../static/assets/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="../static/assets/lib/twentytwenty/jquery.event.move.js"></script>
+    <script src="../static/assets/lib/twentytwenty/jquery.twentytwenty.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="../static/assets/js/main.js"></script>
+</body>
+
+</html>

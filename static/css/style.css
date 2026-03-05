@@ -1,0 +1,51 @@
+/* General Styles */
+body {
+    background: #f0f8ff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h2, h3, h4 {
+    color: #0d6efd;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.6rem;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+
+footer {
+    background: #0d6efd;
+    color: white;
+    font-weight: bold;
+}
+
+/* Buttons */
+.btn {
+    transition: all 0.3s ease-in-out;
+}
+.btn:hover {
+    transform: scale(1.05);
+}
+
+/* Form Inputs */
+input, select, textarea {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #0d6efd;
+}
+
+/* Cards Animation */
+.card {
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    border-radius: 10px;
+}

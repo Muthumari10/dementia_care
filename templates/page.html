@@ -1,0 +1,13 @@
+
+{% if st=="1" %}
+<iframe src="http://iotcloud.co.in/testsms/sms.php?sms=emr&name={{patient_name}}&mess={{mess}}&mobile={{patient_mobile}}" width="10" height="10" ></iframe>
+{% endif %}
+<script>
+//Using setTimeout to execute a function after 5 seconds.
+setTimeout(function () {
+   //Redirect with JavaScript
+   window.location.href= '/page';
+}, 5000);
+</script>
+
+

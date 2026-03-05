@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Relatives | Dementia Care</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/bootstrap.min.css') }}">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>My Relatives</h2>
+    <hr>
+    <a href="{{ url_for('train_relative') }}" class="btn btn-success mb-3">Add New Relative</a>
+    {% if relatives %}
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Photo Sample</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rel in relatives %}
+                <tr>
+                    <td>{{ rel.name }}</td>
+                    <td>{{ rel.relative_type }}</td>
+                    <td>
+                        {% set sample = rel.photo_path ~ '/1.jpg' %}
+                        <img src="{{ url_for('static', filename=sample.split('static/')[-1]) }}" width="100">
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No relatives enrolled yet.</p>
+    {% endif %}
+</div>
+</body>
+</html>

@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-4">
+
+  <!-- Patient Info -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h3 class="mb-3">Patient Details</h3>
+      <p><strong>Name:</strong> {{ patient.name }}</p>
+      <p><strong>Mobile:</strong> {{ patient.mobile }}</p>
+      <p><strong>Email:</strong> {{ patient.email }}</p>
+      <p><strong>Location:</strong> {{ patient.location }}</p>
+    </div>
+  </div>
+
+  <!-- Dementia Test Results -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h4 class="mb-3">Dementia Test Results</h4>
+
+      {% if tests %}
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Age</th>
+              <th>Blood Pressure</th>
+              <th>Cholesterol</th>
+              <th>Result</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for test in tests %}
+            <tr>
+              <td>{{ test.age }}</td>
+              <td>{{ test.blood_pressure }}</td>
+              <td>{{ test.cholesterol }}</td>
+              <td>
+                <span class="badge 
+                  {% if test.result == 'Positive' %}bg-danger
+                  {% else %}bg-success{% endif %}">
+                  {{ test.result }}
+                </span>
+              </td>
+              <td>{{ test.timestamp }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+        <p class="text-muted">No test results available.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Chatbot Logs -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h4 class="mb-3">Chatbot Logs</h4>
+
+      {% if logs %}
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+          <thead class="table-secondary">
+            <tr>
+              <th>Question</th>
+              <th>Answer</th>
+              <th>Timestamp</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for log in logs %}
+            <tr>
+              <td>{{ log.question }}</td>
+              <td>{{ log.answer }}</td>
+              <td>{{ log.timestamp }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+        <p class="text-muted">No chatbot interactions found.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Login Activity -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h4 class="mb-3">Login Activity</h4>
+
+      {% if activity %}
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th>Login Time</th>
+              <th>IP Address</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for act in activity %}
+            <tr>
+              <td>{{ act.login_time }}</td>
+              <td>{{ act.ip_address }}</td>
+              <td>
+                <span class="badge 
+                  {% if act.status == 'Success' %}bg-success
+                  {% else %}bg-danger{% endif %}">
+                  {{ act.status }}
+                </span>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+        <p class="text-muted">No login activity recorded.</p>
+      {% endif %}
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
