@@ -167,7 +167,7 @@ The system integrates multiple AI modules:
 ```
 ## Project Structure
 
-```
+
 dementiacare-ai/
 │
 ├── app.py
@@ -210,7 +210,7 @@ dementiacare-ai/
 └── README.md
 ```
 
-```
+
 
 ---
 
